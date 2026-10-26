@@ -1,10 +1,10 @@
-# TStruct: Learning Shared Temporal Structures for Long-Term Time-Series Forecasting. (NeurIPS 2026)
+# TStruct: Learning Shared Temporal Structures for Long-Term Time-Series Forecasting (NeurIPS 2026)
 
-[Openreview](https://openreview.net/forum?id=q3fXT85cph) · [arXiv](https://arxiv.org/abs/2610.17864)
+[OpenReview](https://openreview.net/forum?id=q3fXT85cph) · [arXiv](https://arxiv.org/abs/2610.17864)
 
 ## Motivation
 
-Shared temporal structures exist across samples and variables in time series. TStruct aims to learn and reuse these structures for long-term forecasting.
+Distribution shifts and cross-domain heterogeneity make it challenging to learn generalizable representations directly from time-series observations. We hypothesize that, despite differences in their observed values, real-world time series reflect underlying temporal evolution governed by shared relational structures. To investigate this hypothesis, we represent temporal relationships using patch-level dependency matrices and analyze their spectral properties across samples and variables. The observed spectral concentration motivates modeling temporal dependencies through a shared low-dimensional structure basis. Building on this insight, TStruct learns shared temporal structures and adaptively combines them for long-term forecasting.
 
 <p align="center">
   <a href="figures/motivation.png"><img src="figures/motivation.png" alt="Motivation: shared temporal structures across samples and variables" width="1000"></a>
@@ -12,7 +12,7 @@ Shared temporal structures exist across samples and variables in time series. TS
 
 ## Method
 
-TStruct combines a shared temporal structure basis with channel- and instance-dependent coefficients to model temporal dependencies. A parameter-efficient channel adaptation head maps the resulting representations to future predictions.
+TStruct directly parameterizes shared temporal structures, using appropriate initialization and limiting their flexibility to mitigate overfitting. Even simple adaptive combinations of these structures can yield strong performance in long-term forecasting. A parameter-efficient channel adaptation head maps the resulting representations to future predictions.
 
 <p align="center">
   <a href="figures/methodology.png"><img src="figures/methodology.png" alt="TStruct architecture, Temporal Structure Mixer, and PCAHead" width="1000"></a>
@@ -20,7 +20,7 @@ TStruct combines a shared temporal structure basis with channel- and instance-de
 
 ## Time Structure Visualizations
 
-The heatmaps below visualize the learned temporal structure matrices on seven datasets. Both axes index temporal patches; each panel shows one structure, with rows corresponding to encoder layers where applicable. Click a figure to view it at full resolution.
+We provide additional visualizations of the learned temporal structures across all benchmark datasets. Red and blue indicate higher and lower relative aggregation preferences, respectively. The visualizations show that the learned structures are not random mixing patterns.
 
 <details open>
 <summary><strong>ETTh1</strong></summary>
@@ -40,7 +40,7 @@ The heatmaps below visualize the learned temporal structure matrices on seven da
 
 </details>
 
-<details>
+<details open>
 <summary><strong>ETTm1</strong></summary>
 
 <p align="center">
@@ -67,7 +67,7 @@ The heatmaps below visualize the learned temporal structure matrices on seven da
 
 </details>
 
-<details>
+<details open>
 <summary><strong>Electricity</strong></summary>
 
 <p align="center">
@@ -84,6 +84,12 @@ The heatmaps below visualize the learned temporal structure matrices on seven da
 </p>
 
 </details>
+
+## Results
+
+<p align="center">
+  <a href="figures/results.png"><img src="figures/results.png" alt="Forecasting performance comparison of TStruct and baseline models" width="1000"></a>
+</p>
 
 ## Getting Started
 
@@ -165,4 +171,7 @@ We would like to thank the authors of the following open-source projects for the
 - [OpenTS](https://decisionintelligence.github.io/OpenTS/)
 
 
+## Contact
+
+If you have any questions, please contact [liyangze@mail.ustc.edu.cn](mailto:liyangze@mail.ustc.edu.cn) or [submit an issue](https://github.com/yangzeli/TStruct/issues).
 
