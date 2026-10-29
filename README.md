@@ -4,7 +4,16 @@
 
 ## Motivation
 
-Distribution shifts and cross-domain heterogeneity make it challenging to learn generalizable representations directly from time-series observations. We hypothesize that, despite differences in their observed values, real-world time series reflect underlying temporal evolution governed by shared relational structures. To investigate this hypothesis, we represent temporal relationships using patch-level dependency matrices and analyze their spectral properties across samples and variables. The observed spectral concentration motivates modeling temporal dependencies through a shared low-dimensional structure basis. Building on this insight, TStruct learns shared temporal structures and adaptively combines them for long-term forecasting.
+
+**When observations are difficult to align, could the temporal relationships needed for forecasting be easier to reuse?**
+
+Time series from different systems differ in scale, meaning, and statistical properties, while distribution shifts make these properties change over time. These challenges motivate a fundamental question: what knowledge should a forecasting model share across samples, variables, and potentially domains? We hypothesize that heterogeneous observations can reflect recurring modes of temporal evolution, and that the relationships relevant to prediction may vary within a more compact space than the observations themselves.
+
+In attention-based models, temporal dependencies are typically computed as dot products between query and key vectors derived from the input at different time positions. TStruct takes a different approach: **learn reusable temporal dependency patterns directly, and let input content determine how to combine them.** This makes shared relational structure an explicit modeling target while retaining the ability to adapt to each sample and variable.
+
+To investigate this hypothesis, we construct patch-level temporal relationship matrices and analyze their spectral properties across samples and variables. Spectral concentration in the stacked, vectorized matrices suggests that their dominant patterns can be described by a small number of shared directions. We further evaluate two null controls through the same analysis pipeline. Real data exhibit stronger concentration than independent Gaussian inputs. Concentration also decreases when patch positions are independently shuffled, preserving each relationship matrix's spectrum while disrupting the correspondence of relative temporal positions across matrices. Together, these observations support the presence of reusable temporal relationship patterns at aligned relative positions.
+
+Building on this insight, **TStruct directly parameterizes a set of shared temporal dependency structures and adaptively combines them using dynamic sample information and static variable priors.** Shared structures capture reusable patterns, while their combinations accommodate heterogeneous inputs for long-term forecasting. This work studies structural reuse across samples and variables, and motivates a broader direction: pretraining a dictionary of temporal relationships that different forecasting tasks can select, combine, and adapt to their own observations.
 
 <p align="center">
   <a href="figures/motivation.png"><img src="figures/motivation.png" alt="Motivation: shared temporal structures across samples and variables" width="1000"></a>
@@ -12,7 +21,7 @@ Distribution shifts and cross-domain heterogeneity make it challenging to learn 
 
 ## Method
 
-TStruct directly parameterizes shared temporal structures, using appropriate initialization and limiting their flexibility to mitigate overfitting. Even simple adaptive combinations of these structures can yield strong performance in long-term forecasting. A parameter-efficient channel adaptation head maps the resulting representations to future predictions.
+TStruct learns a set of shared temporal dependency matrices. Dynamic sample information and static variable priors determine how these matrices are combined, and the resulting scores are normalized with softmax to aggregate patch-level features. A parameter-efficient channel adaptation head then maps these features to future predictions.
 
 <p align="center">
   <a href="figures/methodology.png"><img src="figures/methodology.png" alt="TStruct architecture, Temporal Structure Mixer, and PCAHead" width="1000"></a>
@@ -31,7 +40,7 @@ We provide additional visualizations of the learned temporal structures across a
 
 </details>
 
-<details>
+<details open>
 <summary><strong>ETTh2</strong></summary>
 
 <p align="center">
@@ -49,7 +58,7 @@ We provide additional visualizations of the learned temporal structures across a
 
 </details>
 
-<details>
+<details open>
 <summary><strong>ETTm2</strong></summary>
 
 <p align="center">
@@ -58,7 +67,7 @@ We provide additional visualizations of the learned temporal structures across a
 
 </details>
 
-<details>
+<details open>
 <summary><strong>Weather</strong></summary>
 
 <p align="center">
@@ -76,7 +85,7 @@ We provide additional visualizations of the learned temporal structures across a
 
 </details>
 
-<details>
+<details open>
 <summary><strong>Traffic</strong></summary>
 
 <p align="center">
@@ -173,5 +182,6 @@ We would like to thank the authors of the following open-source projects for the
 
 ## Contact
 
-If you have any questions, please contact [liyangze@mail.ustc.edu.cn](mailto:liyangze@mail.ustc.edu.cn) or [submit an issue](https://github.com/yangzeli/TStruct/issues).
+We welcome questions, feedback, and discussions! Feel free to contact us at [liyangze@mail.ustc.edu.cn](mailto:liyangze@mail.ustc.edu.cn) or [submit an issue](https://github.com/yangzeli/TStruct/issues).
+
 
