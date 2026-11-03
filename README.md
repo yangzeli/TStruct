@@ -1,4 +1,4 @@
-# TStruct: Learning Shared Temporal Structures for Long-Term Time-Series Forecasting (NeurIPS 2026)
+# TStruct: Learning Shared Temporal Structures for Long-Term Time Series Forecasting (NeurIPS 2026)
 
 [OpenReview](https://openreview.net/forum?id=q3fXT85cph) · [arXiv](https://arxiv.org/abs/2610.17864)
 
